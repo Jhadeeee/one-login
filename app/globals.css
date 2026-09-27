@@ -107,6 +107,7 @@ p {
 }
 .app-header {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
@@ -115,6 +116,7 @@ p {
 }
 .header-actions {
   display: flex;
+  margin-left: auto;
   align-items: center;
   gap: 9px;
 }
