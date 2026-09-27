@@ -1,0 +1,10 @@
+node_modules
+.next
+.vercel
+.local
+test-results
+playwright-report
+package-lock.json
+developer-test-brief.md
+part-1-product-plan.md
+public/fonts

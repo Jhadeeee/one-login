@@ -1,0 +1,8 @@
+.git
+.local
+tests
+test-results
+playwright-report
+developer-test-brief.md
+part-1-product-plan.md
+.env*
