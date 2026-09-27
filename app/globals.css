@@ -6,21 +6,6 @@
   --muted: #536e6a;
   --line: #d3e1df;
   --red: #a3273a;
-  --pixel: var(--font-pixel), monospace;
-  --step: polygon(
-    0 8px,
-    8px 8px,
-    8px 0,
-    calc(100% - 8px) 0,
-    calc(100% - 8px) 8px,
-    100% 8px,
-    100% calc(100% - 8px),
-    calc(100% - 8px) calc(100% - 8px),
-    calc(100% - 8px) 100%,
-    8px 100%,
-    8px calc(100% - 8px),
-    0 calc(100% - 8px)
-  );
   color-scheme: light;
 }
 * {
@@ -79,19 +64,15 @@ h3,
 p {
   margin: 0;
 }
-.pixel,
-.eyebrow {
-  font-family: var(--pixel);
-  font-weight: 400;
-}
 .eyebrow {
   color: var(--teal);
   font-size: 0.82rem;
+  font-weight: 600;
   line-height: 1.6;
 }
 .brand {
-  font-family: var(--pixel);
-  font-size: 1.35rem;
+  font-size: 1.5rem;
+  font-weight: 700;
   color: var(--teal);
   letter-spacing: -0.7px;
   line-height: 1.15;
@@ -164,16 +145,37 @@ p {
   margin-bottom: 3px;
 }
 .profit-panel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   padding: 25px 26px 24px;
   background-color: var(--teal);
   background-image:
-    linear-gradient(#f8fafc08 1px, transparent 1px),
-    linear-gradient(90deg, #f8fafc08 1px, transparent 1px);
-  background-size: 24px 24px;
+    radial-gradient(ellipse at 100% 0%, #ffffff24, transparent 65%),
+    linear-gradient(125deg, transparent 38%, #ffffff0d 48%, #ffffff17 58%, transparent 76%);
   color: var(--paper);
-  clip-path: var(--step);
+  border-radius: 0;
+  box-shadow:
+    inset 0 1px 0 #ffffff38,
+    inset 0 0 0 1px #ffffff14;
   --status-bg: var(--bright);
   --status-ink: #073c36;
+}
+.profit-panel::after,
+.primary-button::after,
+.secondary-button::after,
+.danger-button::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0 auto 0 0;
+  width: 55%;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, #ffffff1f, transparent);
+  transform: translateX(-180%) skewX(-20deg);
+}
+.profit-panel::after {
+  animation: surface-shine 2.8s ease-out 0.25s both;
 }
 .profit-panel[data-tone='loss'] {
   background-color: var(--red);
@@ -191,6 +193,7 @@ p {
 }
 .profit-panel .metric-label {
   font-size: 0.9rem;
+  font-weight: 600;
 }
 .profit-value {
   display: block;
@@ -258,6 +261,9 @@ p {
 .primary-button,
 .secondary-button,
 .danger-button {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -270,30 +276,37 @@ p {
   font-size: 1rem;
   border-radius: 0;
   line-height: 1.4;
+  background-image: linear-gradient(180deg, #ffffff12, transparent 65%);
 }
 .primary-button {
-  background: var(--teal);
+  background-color: var(--teal);
   color: var(--paper);
   border: 2px solid #075a54;
   box-shadow: 4px 4px 0 var(--bright);
   transition:
-    transform 0.12s steps(2),
-    box-shadow 0.12s steps(2);
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background-color 0.15s ease;
 }
 .primary-button:hover:not(:disabled) {
-  background: #09695f;
+  background-color: #09695f;
+}
+.primary-button:is(:hover, :focus-visible, :active):not(:disabled)::after,
+.secondary-button:is(:hover, :focus-visible, :active):not(:disabled)::after,
+.danger-button:is(:hover, :focus-visible, :active):not(:disabled)::after {
+  animation: surface-shine 0.85s ease-out both;
 }
 .primary-button:active:not(:disabled) {
   transform: translate(2px, 2px);
   box-shadow: 2px 2px 0 var(--bright);
 }
 .secondary-button {
-  background: var(--paper);
+  background-color: var(--paper);
   border: 1px solid #9abaaf;
   color: var(--teal);
 }
 .danger-button {
-  background: var(--red);
+  background-color: var(--red);
   color: var(--paper);
   border: 2px solid #801b2b;
   margin: 22px 0 12px;
@@ -656,6 +669,7 @@ input::placeholder {
 }
 .login-footer {
   font-size: 0.78rem;
+  font-weight: 600;
   color: var(--teal);
   padding-top: 22px;
   margin-top: auto;
@@ -685,7 +699,6 @@ input::placeholder {
 }
 .skeleton-profit {
   height: 190px;
-  clip-path: var(--step);
 }
 .skeleton-totals {
   height: 74px;
@@ -697,6 +710,11 @@ input::placeholder {
 }
 .spin {
   animation: spin 1s linear infinite;
+}
+@keyframes surface-shine {
+  to {
+    transform: translateX(300%) skewX(-20deg);
+  }
 }
 @keyframes spin {
   to {
@@ -754,7 +772,7 @@ input::placeholder {
     padding: 20px 18px 24px;
   }
   .brand {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
   }
   .header-actions {
     gap: 5px;

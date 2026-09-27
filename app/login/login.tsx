@@ -114,7 +114,7 @@ export function Login() {
         </form>
         <p className="login-note">Your session stays with you. One less thing to do.</p>
       </section>
-      <p className="login-footer pixel">Out-simple them.</p>
+      <p className="login-footer">Out-simple them.</p>
     </main>
   );
 }

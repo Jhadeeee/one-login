@@ -283,7 +283,7 @@ export function Dashboard({
       <section className="numbers" aria-label="This month's financial position" aria-busy={busy}>
         <div className="profit-wrap">
           <div className="profit-panel" data-tone={tone}>
-            <span className="pixel metric-label">Profit</span>
+            <span className="metric-label">Profit</span>
             <strong className="profit-value" data-testid="profit">
               {money(profit)}
             </strong>
@@ -344,9 +344,7 @@ export function Dashboard({
       </div>
       <section className="activity" aria-labelledby="activity-title">
         <div className="section-heading">
-          <h2 className="pixel" id="activity-title">
-            Latest activity
-          </h2>
+          <h2 id="activity-title">Latest activity</h2>
           <span>
             {data.entry_count} {data.entry_count === 1 ? 'entry' : 'entries'}
           </span>

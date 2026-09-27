@@ -4,7 +4,7 @@ A small mobile-first app for a trade business: sign in, see this month’s money
 
 **Live:** [one-login-kappa.vercel.app](https://one-login-kappa.vercel.app)
 
-Built with Next.js App Router, TypeScript, Supabase Auth/Postgres and Vercel. The interface uses a restrained pixel treatment: Silkscreen accents, stepped panels, teal actions and clear financial figures.
+Built with Next.js App Router, TypeScript, Supabase Auth/Postgres and Vercel. The interface uses clean, straight-edged cards, subtle sheen, teal actions and solid sans-serif typography. Shimmer animations respect reduced-motion preferences.
 
 ## What works
 
@@ -92,5 +92,3 @@ supabase/migrations/     Database schema, RLS and monthly aggregation
 scripts/                 Optional administrative demonstration setup
 tests/                   Money, browser and local database checks
 ```
-
-Silkscreen is licensed under the SIL Open Font License; its license is included in `public/fonts/OFL-Silkscreen.txt`.
