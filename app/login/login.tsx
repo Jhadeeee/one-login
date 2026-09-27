@@ -1,9 +1,16 @@
 'use client';
-import { useRef, useState } from 'react';
+import { useRef, useState, useSyncExternalStore } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowRight, Eye, EyeOff, LoaderCircle } from 'lucide-react';
 import { Brand } from '@/components/brand';
+const subscribe = () => () => {};
 export function Login() {
+  // The server-rendered form must not accept credentials before React owns submission.
+  const ready = useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false,
+  );
   const router = useRouter();
   const lock = useRef(false);
   const [busy, setBusy] = useState(false);
@@ -52,7 +59,7 @@ export function Login() {
           <span>All in one place.</span>
         </h1>
         <p className="login-intro">Sign in. See your numbers. Get back to work.</p>
-        <form onSubmit={submit} className="login-form">
+        <form onSubmit={submit} method="post" className="login-form">
           <label htmlFor="email">Email</label>
           <input
             id="email"
@@ -65,7 +72,7 @@ export function Login() {
             placeholder="you@yourbusiness.com"
             required
             maxLength={254}
-            disabled={busy}
+            disabled={busy || !ready}
           />
           <label htmlFor="password">Password</label>
           <div className="password-field">
@@ -76,7 +83,7 @@ export function Login() {
               autoComplete="current-password"
               required
               maxLength={256}
-              disabled={busy}
+              disabled={busy || !ready}
             />
             <button
               type="button"
@@ -93,7 +100,7 @@ export function Login() {
               {error}
             </p>
           )}
-          <button className="primary-button" disabled={busy}>
+          <button className="primary-button" disabled={busy || !ready}>
             {busy ? (
               <>
                 <LoaderCircle className="spin" size={20} /> Signing in…

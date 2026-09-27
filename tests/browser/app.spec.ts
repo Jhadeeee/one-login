@@ -45,6 +45,23 @@ test.beforeAll(async () => {
     .is('voided_at', null);
   if (cleanup) throw cleanup;
 });
+test('login is safe while scripts are loading', async ({ page }) => {
+  let releaseScripts!: () => void;
+  const scriptsReady = new Promise<void>((resolve) => {
+    releaseScripts = resolve;
+  });
+  await page.route('**/_next/static/**/*.js', async (route) => {
+    await scriptsReady;
+    await route.continue();
+  });
+  await page.goto('/login', { waitUntil: 'commit' });
+  await expect(page.getByRole('button', { name: 'Sign in', exact: true })).toBeDisabled();
+  await expect(page.getByLabel('Password', { exact: true })).toBeDisabled();
+  await expect(page.locator('form')).toHaveAttribute('method', 'post');
+  releaseScripts();
+  await expect(page.getByRole('button', { name: 'Sign in', exact: true })).toBeEnabled();
+});
+
 test('phone: login, instant save, persistence, loss, undo, correction and logout', async ({
   page,
 }) => {
